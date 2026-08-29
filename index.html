@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>酷澎分潤連結產生器 — 一鍵產生 Coupang Partners 分潤連結</title>
-<meta name="description" content="為 Coupang Partners 推廣者設計的 Chrome 擴充功能。在任何酷澎商品頁一鍵產生官方分潤長/短網址,內建截圖工具,提升貼文效率 10 倍。">
+<meta name="description" content="為 Coupang Partners 推廣者設計的 Chrome 擴充功能。在任何酷澎商品頁一鍵產生官方分潤長/短網址,自動追蹤價格找出歷史低點,內建截圖與短文案工具,提升貼文效率 10 倍。">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -303,7 +303,6 @@
       <a href="#how">怎麼用</a>
       <a href="#pricing">方案</a>
       <a href="manual.html">📖 手冊</a>
-      <a href="https://line.me/ti/p/Y2Cv39U_Rc">📧 LINE聯繫</a>
       <a href="https://chrome.google.com/webstore/detail/lhfoklkfckhjkjdajjhfbjjeokpkfogf" class="nav-cta" target="_blank">加到 Chrome</a>
     </div>
   </div>
@@ -316,16 +315,17 @@
     <h1>酷澎分潤連結產生器</h1>
     <p class="tagline">
       為 Coupang Partners 推廣者設計的 Chrome 擴充功能<br>
-      在任何酷澎商品頁,<strong style="color:#ff3e3e">3 秒</strong>產生官方分潤連結
+      在任何酷澎商品頁,<strong style="color:#ff3e3e">3 秒</strong>產生官方分潤連結<br>
+      還會<strong style="color:#ff3e3e">自動幫你盯價</strong>,等跌到歷史低點再發文
     </p>
     <div class="cta-row">
       <a href="https://chrome.google.com/webstore/detail/lhfoklkfckhjkjdajjhfbjjeokpkfogf" class="btn btn-primary" target="_blank">🚀 加到 Chrome</a>
       <a href="manual.html" class="btn btn-secondary">📖 操作手冊</a>
     </div>
     <div class="badges">
-      <span class="badge green">✓ 官方 API</span>
+      <span class="badge green">✓ 官方 OpenAPI</span>
       <span class="badge green">✓ HMAC 加密</span>
-      <span class="badge red">📸 NEW v1.7.1 截圖工具</span>
+      <span class="badge red">📊 NEW v1.9.0 價格追蹤</span>
       <span class="badge">繁體中文</span>
     </div>
   </div>
@@ -335,7 +335,7 @@
 <section id="features">
   <div class="container">
     <h2>為什麼用這個工具?</h2>
-    <p class="section-sub">省下開後台、貼網址、等產出、複製的繁瑣步驟</p>
+    <p class="section-sub">省下開後台、貼網址、等產出、複製的繁瑣步驟——還幫你抓對發文時機</p>
 
     <div class="features-grid">
       <div class="feature-card">
@@ -345,15 +345,27 @@
       </div>
 
       <div class="feature-card">
-        <div class="icon">📸</div>
-        <h3>內建截圖工具<span class="new-tag">NEW</span></h3>
-        <p>在酷澎頁面框選任意區域,截圖直接複製到剪貼簿。所有酷澎分頁紅框自動同步,貼到 IG/FB/LINE 不用再開截圖軟體。</p>
+        <div class="icon">📊</div>
+        <h3>自動追蹤價格<span class="new-tag">NEW</span></h3>
+        <p>商品頁點一下 <b>☆</b> 就開始追蹤,每小時自動幫你盯價。儀表板一眼看出哪些商品正落在<b>歷史低點</b>——挑那些發文,轉單率完全不一樣。價格資料只存在你自己的電腦。</p>
       </div>
 
       <div class="feature-card">
         <div class="icon">📝</div>
         <h3>一鍵複製貼文格式</h3>
-        <p>自動擷取商品標題,按一個按鈕同時複製「商品標題 + 短網址」,直接貼到 IG/Threads/LINE 完美排版。</p>
+        <p>按一個按鈕就複製成完整貼文:<b>商品標題(單價)</b> / <b>原價→特價(折數)</b> / 短網址。三行到底,直接貼 IG/Threads/LINE 不用再排版。</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon">✏️</div>
+        <h3>短文案產生器</h3>
+        <p>一鍵生出可直接發的推廣短句,依商品分類挑句型、自動帶入真實價格與折數。<b>完全在你電腦上運算</b>——不呼叫 AI、不需要網路。</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon">📸</div>
+        <h3>內建截圖工具</h3>
+        <p>在酷澎頁面框選任意區域,截圖直接複製到剪貼簿,還會自動加上黃色單價標貼。所有酷澎分頁紅框同步,貼到 IG/FB/LINE 不用再開截圖軟體。</p>
       </div>
 
       <div class="feature-card">
@@ -387,17 +399,17 @@
       <div class="step">
         <div class="step-num">1</div>
         <h4>申請 Partners 帳號</h4>
-        <a href="https://link.tw.coupang.com/a/dKdQk78xTU">申請成為推廣者(審核 1~3 天)</a>
+        <p>到 partners.tw.coupang.com 申請成為推廣者(審核 1~3 天)</p>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <h4>取得 API Key</h4>
-        <p>後台「API 管理」取得你的 Access Key + Secret Key</p>
+        <p>後台「OpenAPI 管理」建立你的 Access Key + Secret Key</p>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <h4>購買授權金鑰</h4>
-        <p><a href="https://line.me/ti/p/Y2Cv39U_Rc">📧 LINE聯繫</a>作者購買金鑰,付款後 5~30 分鐘收到</p>
+        <p>LINE 私訊作者購買金鑰,付款後 5~30 分鐘收到</p>
       </div>
       <div class="step">
         <div class="step-num">4</div>
@@ -407,7 +419,7 @@
       <div class="step">
         <div class="step-num">5</div>
         <h4>開始用</h4>
-        <p>到任何酷澎商品頁,點圖示按「產生」3 秒拿到分潤連結</p>
+        <p>到任何酷澎商品頁點「產生」,3 秒拿到分潤連結;順手按 ☆ 就開始自動追蹤價格</p>
       </div>
     </div>
 
@@ -436,7 +448,7 @@
         <tbody>
           <tr>
             <td>試用</td>
-            <td>3 天</td>
+            <td>1 天</td>
             <td>1 台</td>
             <td><span class="price">免費</span><br><small style="color:#65676b">私訊索取 LINE: pidan0126</small></td>
           </tr>
@@ -468,6 +480,7 @@
       </table>
     </div>
 
+    <p class="pricing-note">📊 <b>所有方案都隨附 10 個商品的價格追蹤額度</b>,不另外收費</p>
     <p class="pricing-note">💡 換電腦?LINE 私訊作者解除舊裝置(限一次)即可在新電腦啟用同支金鑰</p>
   </div>
 </section>
@@ -476,7 +489,7 @@
 <div class="cta-bottom">
   <div class="container">
     <h2>準備好讓貼文效率 ×10 嗎?</h2>
-    <p>免費試用 3 天,測試完滿意再付費。任何問題 LINE 找我。</p>
+    <p>免費試用 1 天,測試完滿意再付費。任何問題 LINE 找我。</p>
     <a href="https://chrome.google.com/webstore/detail/lhfoklkfckhjkjdajjhfbjjeokpkfogf" class="btn" target="_blank">🚀 立即加到 Chrome</a>
   </div>
 </div>
@@ -487,7 +500,7 @@
     <a href="manual.html">📖 操作手冊</a>
     <a href="PRIVACY.html">🛡️ 隱私權政策</a>
     <a href="https://chrome.google.com/webstore/detail/lhfoklkfckhjkjdajjhfbjjeokpkfogf" target="_blank">🔗 Chrome Web Store</a>
-    <a href="https://line.me/ti/p/Y2Cv39U_Rc">📧 LINE聯繫</a>
+    <a href="mailto:pidan0126@gmail.com">📧 Email</a>
   </div>
   <div class="copyright">
     © 2026 酷澎分潤連結產生器 · LINE: pidan0126<br>
