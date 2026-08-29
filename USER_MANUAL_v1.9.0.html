@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<title>酷澎分潤連結產生器 — 完整操作手冊 v1.9.0</title>
+<style>
+  /* ============== 列印優化:Chrome 列印設定建議 A4、邊界「預設」、勾「背景圖形」 ============== */
+  @page {
+    size: A4;
+    margin: 18mm 16mm 18mm 16mm;
+  }
+  @media print {
+    .no-print { display: none !important; }
+    body { font-size: 11pt; }
+    .page-break { page-break-after: always; }
+    h1, h2, h3 { page-break-after: avoid; }
+    table, .callout, .step, .img-placeholder { page-break-inside: avoid; }
+    a { color: #c93a3a; text-decoration: none; }
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+    color: #1c1e21;
+    max-width: 780px;
+    margin: 24px auto;
+    padding: 0 24px 60px;
+    line-height: 1.7;
+    background: #fff;
+  }
+
+  /* 工具列 (列印時隱藏) */
+  .toolbar {
+    position: sticky;
+    top: 0;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid #e4e6eb;
+    padding: 10px 0;
+    margin: 0 -24px 24px;
+    text-align: center;
+    z-index: 100;
+  }
+  .toolbar button {
+    background: #ff3e3e; color: #fff; border: 0;
+    padding: 10px 22px; border-radius: 8px;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+  }
+  .toolbar button:hover { background: #e22a2a; }
+  .toolbar .hint {
+    display: block; font-size: 11px; color: #65676b; margin-top: 6px;
+  }
+
+  /* 封面 */
+  .cover {
+    text-align: center;
+    padding: 60px 0;
+    border-bottom: 3px solid #ff3e3e;
+    margin-bottom: 40px;
+  }
+  .cover .logo {
+    width: 90px; height: 90px;
+    background: #ff3e3e; color: #fff;
+    border-radius: 22px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 56px; font-weight: 800;
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .cover .logo::after {
+    content: "";
+    position: absolute; right: -6px; bottom: -6px;
+    width: 26px; height: 26px;
+    background: #2ecc71;
+    border-radius: 50%;
+    border: 4px solid #fff;
+  }
+  .cover h1 {
+    font-size: 30px; margin: 8px 0; color: #1c1e21; border: 0;
+  }
+  .cover .subtitle { color: #65676b; font-size: 15px; margin: 4px 0; }
+  .cover .meta {
+    display: inline-block;
+    margin-top: 24px; padding: 8px 16px;
+    background: #fff5f5; border: 1px solid #ffd5d5;
+    border-radius: 8px; font-size: 12px; color: #c93a3a;
+  }
+  .cover .new-badge {
+    display: inline-block;
+    margin-top: 16px; padding: 6px 14px;
+    background: linear-gradient(135deg, #ff3e3e, #ff8a3e);
+    color: #fff; border-radius: 999px;
+    font-size: 12px; font-weight: 600;
+    box-shadow: 0 2px 8px rgba(255, 62, 62, 0.3);
+  }
+
+  /* 標題層級 */
+  h1 {
+    font-size: 24px; color: #1c1e21;
+    border-bottom: 2px solid #ff3e3e;
+    padding-bottom: 8px; margin-top: 36px;
+  }
+  h2 {
+    font-size: 19px; color: #1c1e21;
+    border-left: 4px solid #ff3e3e; padding-left: 12px;
+    margin-top: 32px;
+  }
+  h3 {
+    font-size: 15px; color: #1c1e21;
+    margin-top: 22px;
+  }
+
+  /* 內文 */
+  p { margin: 10px 0; }
+  ul, ol { padding-left: 22px; }
+  li { margin: 4px 0; }
+  strong { color: #c93a3a; font-weight: 600; }
+  code {
+    background: #f0f2f5; color: #c93a3a;
+    padding: 2px 6px; border-radius: 4px;
+    font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+    font-size: 0.9em;
+  }
+  pre {
+    background: #1e1e1e; color: #d4d4d4;
+    padding: 14px 16px; border-radius: 8px;
+    overflow-x: auto; font-size: 12px;
+    line-height: 1.5;
+  }
+  pre code { background: transparent; color: inherit; padding: 0; }
+
+  /* 表格 */
+  table {
+    width: 100%; border-collapse: collapse;
+    margin: 16px 0; font-size: 13px;
+  }
+  th, td {
+    border: 1px solid #e4e6eb;
+    padding: 10px 12px; text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #f6f7f9; font-weight: 600;
+  }
+  tbody tr:nth-child(even) { background: #fafafa; }
+
+  /* 截圖位置 placeholder */
+  .img-placeholder {
+    margin: 16px 0;
+    padding: 28px 18px;
+    border: 2px dashed #ff3e3e;
+    border-radius: 10px;
+    background: #fff5f5;
+    text-align: center;
+    color: #c93a3a;
+    font-size: 13px;
+  }
+  .img-placeholder .label {
+    display: inline-block;
+    background: #ff3e3e; color: #fff;
+    padding: 3px 10px; border-radius: 4px;
+    font-size: 11px; font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .img-placeholder .desc { color: #65676b; font-size: 12px; margin-top: 6px; }
+
+  /* 步驟卡 */
+  .step {
+    background: #f6f7f9;
+    border-left: 4px solid #2ecc71;
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* 警告/提示 */
+  .callout {
+    background: #fff8e1;
+    border: 1px solid #ffe69c;
+    color: #6d4c00;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin: 14px 0;
+    font-size: 13px;
+  }
+  .callout.danger {
+    background: #fce4e4;
+    border-color: #f5c1c1;
+    color: #a32d2d;
+  }
+  .callout.info {
+    background: #e8f3ff;
+    border-color: #c8e0ff;
+    color: #0c447c;
+  }
+  .callout.new {
+    background: #e8fbf0;
+    border-color: #a8e6c0;
+    color: #1a6b3d;
+  }
+
+  /* 燈號 */
+  .led {
+    display: inline-block; width: 12px; height: 12px;
+    border-radius: 50%; vertical-align: middle;
+    margin-right: 6px;
+  }
+  .led-green { background: #2ecc71; box-shadow: 0 0 0 3px rgba(46,204,113,0.2); }
+  .led-yellow { background: #f1c40f; box-shadow: 0 0 0 3px rgba(241,196,15,0.2); }
+  .led-red { background: #e74c3c; box-shadow: 0 0 0 3px rgba(231,76,60,0.2); }
+  .led-orange { background: #e67e22; box-shadow: 0 0 0 3px rgba(230,126,34,0.2); }
+
+  /* 目錄 */
+  .toc {
+    background: #f6f7f9;
+    padding: 16px 20px;
+    border-radius: 10px;
+    margin: 24px 0;
+  }
+  .toc h2 { margin-top: 0; border: 0; padding: 0; font-size: 16px; }
+  .toc ol { margin: 8px 0 0 0; }
+  .toc a { color: #1c1e21; text-decoration: none; }
+  .toc a:hover { color: #ff3e3e; text-decoration: underline; }
+  .toc .new-tag {
+    display: inline-block;
+    background: #ff3e3e; color: #fff;
+    font-size: 10px; padding: 1px 6px;
+    border-radius: 4px; margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* 新功能高亮區塊 */
+  .feature-card {
+    background: linear-gradient(135deg, #fff5f5, #fff);
+    border: 1px solid #ffd5d5;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin: 18px 0;
+  }
+  .feature-card .title {
+    font-size: 16px; font-weight: 700;
+    color: #c93a3a; margin-bottom: 8px;
+  }
+
+  /* 頁尾 */
+  .footer {
+    margin-top: 60px; padding-top: 24px;
+    border-top: 1px solid #e4e6eb;
+    text-align: center; color: #65676b; font-size: 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar no-print">
+  <button onclick="window.print()">🖨️ 列印 / 另存為 PDF</button>
+  <span class="hint">建議:A4 / 邊界「預設」/ 勾選「背景圖形」</span>
+</div>
+
+<!-- ===================== 封面 ===================== -->
+<div class="cover">
+  <div class="logo">C</div>
+  <h1>酷澎分潤連結產生器</h1>
+  <div class="subtitle">完整操作手冊</div>
+  <div class="meta">v1.9.0 · 2026-08-29 · 繁體中文</div>
+  <div>
+    <span class="new-badge">📊 NEW v1.9.0 全新「價格追蹤」:每小時自動盯價 · 歷史低價標記 · 走勢儀表板</span>
+  </div>
+</div>
+
+<!-- ===================== 目錄 ===================== -->
+<div class="toc">
+  <h2>📑 目錄</h2>
+  <ol>
+    <li><a href="#sec1">這個工具能幫你做什麼</a></li>
+    <li><a href="#sec2">使用前準備</a></li>
+    <li><a href="#sec3">Step 1:安裝擴充功能</a></li>
+    <li><a href="#sec4">Step 2:取得 Coupang Partners API Key</a></li>
+    <li><a href="#sec5">Step 3:取得授權金鑰(向作者購買)</a></li>
+    <li><a href="#sec6">Step 4:設定擴充功能</a></li>
+    <li><a href="#sec7">Step 5:開始產生分潤連結</a></li>
+    <li><a href="#sec8">一鍵複製貼文格式</a></li>
+    <li><a href="#sec9">✏️ 短文案產生器<span class="new-tag">v1.8.8</span></a></li>
+    <li><a href="#sec10">📸 截圖工具</a></li>
+    <li><a href="#sec11">📊 價格追蹤<span class="new-tag">NEW v1.9.0</span></a></li>
+    <li><a href="#sec12">狀態燈號說明</a></li>
+    <li><a href="#sec13">設定頁完整說明</a></li>
+    <li><a href="#sec14">常見問題排除</a></li>
+    <li><a href="#sec15">帳戶管理</a></li>
+    <li><a href="#sec16">安全與隱私</a></li>
+    <li><a href="#sec17">版本更新紀錄</a></li>
+  </ol>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ===================== 1. 工具能做什麼 ===================== -->
+<h1 id="sec1">1. 這個工具能幫你做什麼</h1>
+
+<p>如果你是 <strong>Coupang Partners 推廣者</strong>(KOL、部落客、團主、IG 達人、開箱文寫手……),平常分享酷澎商品時的流程是不是這樣?</p>
+
+<pre>打開 Partners 後台 → 登入 → 找商品 → 等系統產 deeplink
+→ 複製 → 切回 LINE/IG/FB → 貼上</pre>
+
+<p><strong>7 個動作 × 30 秒 × 一天 20 個商品 = 每天浪費 70 分鐘在切視窗。</strong></p>
+
+<p>這個擴充功能讓你:</p>
+<ul>
+  <li>✅ 在任何 <strong>酷澎商品頁</strong> 點一下擴充功能圖示</li>
+  <li>✅ <strong>3 秒</strong>拿到官方分潤長網址 + 官方 <code>coupa.ng</code> 短網址</li>
+  <li>✅ 自動擷取 <strong>商品標題</strong></li>
+  <li>✅ 一鍵複製成 <strong>貼文格式</strong>(標題+單價+折扣行+短網址)</li>
+  <li>✅ 內建 <strong>截圖工具</strong>,框選酷澎頁面任意區域複製到剪貼簿</li>
+  <li>✅ 截圖工具列直接 <strong>一鍵產生分潤連結 + 標題並複製</strong>,不用再開 popup</li>
+  <li>✅ <strong>短文案產生器</strong>:一鍵生出可直接發的推廣句,完全本機運算、不用 AI</li>
+  <li>✅ <span class="new-tag" style="vertical-align:baseline">NEW</span> <strong>價格追蹤</strong>:選定商品每小時自動盯價,儀表板一眼看出誰跌到歷史低點,附完整走勢圖</li>
+</ul>
+
+<!-- ===================== 2. 使用前準備 ===================== -->
+<h1 id="sec2">2. 使用前準備</h1>
+
+<p>開始之前,你需要這 3 樣東西:</p>
+
+<table>
+<thead><tr><th>項目</th><th>怎麼拿</th><th>必要</th></tr></thead>
+<tbody>
+<tr><td>✅ Chrome 瀏覽器</td><td>https://www.google.com/chrome</td><td>必要</td></tr>
+<tr><td>✅ Coupang Partners 帳號</td><td>https://partners.tw.coupang.com 申請</td><td>必要</td></tr>
+<tr><td>✅ 本工具的授權金鑰</td><td>向作者購買(LINE :pidan0126 私訊)</td><td>必要</td></tr>
+</tbody>
+</table>
+
+<div class="page-break"></div>
+
+<!-- ===================== 3. Step 1 ===================== -->
+<h1 id="sec3">Step 1:安裝擴充功能</h1>
+
+<h3>1-1 開啟 Chrome Web Store</h3>
+<p>點作者私訊給你的連結:</p>
+<pre>https://chrome.google.com/webstore/detail/lhfoklkfckhjkjdajjhfbjjeokpkfogf</pre>
+
+<h3>1-2 按「加到 Chrome」</h3>
+<p>按下藍色按鈕後會跳出確認對話框,列出擴充功能需要的權限。按「<strong>新增擴充功能</strong>」。</p>
+
+<h3>1-3 安裝完成 → 自動開設定頁</h3>
+<p>安裝成功後,<strong>會自動打開設定頁面</strong>(在新分頁)。同時 Chrome 工具列右上會出現一個 <strong>紅色 C 的圖示</strong>。</p>
+
+<div class="callout info">
+💡 第一次安裝時 Chrome 會跳出一個權限提示視窗,因為截圖功能需要存取 <code>&lt;all_urls&gt;</code> 權限。這只是 Chrome 的標準提示,本工具<strong>不會背景蒐集任何瀏覽資料</strong>,只在你按下「截取」時才會運作。
+</div>
+
+<!-- ===================== 4. Step 2 ===================== -->
+<h1 id="sec4">Step 2:取得 Coupang Partners API Key</h1>
+
+<div class="callout">
+<strong>為什麼需要?</strong> 因為分潤是進你的酷澎帳戶,必須用你自己的身分驗證。作者拿不到、也用不了你的 Key。
+</div>
+
+<h3>2-1 登入 Coupang Partners</h3>
+<p>打開:<code>https://partners.tw.coupang.com</code>,登入或申請帳號(要審核 1~3 天)</p>
+
+<h3>2-2 找到「OpenAPI 管理」</h3>
+<p>左側選單 → <strong>OpenAPI 管理</strong> / <strong>API 設定</strong> / <strong>我的 API</strong></p>
+
+<h3>2-3 建立 API Key</h3>
+<p>按「<strong>建立新 API Key</strong>」,系統會給你兩串字:</p>
+<ul>
+  <li><strong>Access Key</strong>:UUID 格式,例如 <code>2a689a85-8c79-42cd-8e89-95a317e1f05f</code></li>
+  <li><strong>Secret Key</strong>:40 位 hex 字串</li>
+</ul>
+
+<div class="callout danger">
+⚠️ <strong>Secret Key、Access Key 是很重要的東西</strong>,請「不要」將這兩樣東西公布給其他人知道。
+</div>
+
+<div class="page-break"></div>
+
+<!-- ===================== 5. Step 3 ===================== -->
+<h1 id="sec5">Step 3:取得授權金鑰(向作者購買)</h1>
+
+<p>LINE 私訊作者「我要買 [方案名]」,作者會告知付款方式。</p>
+
+<p>付款後 5~30 分鐘內收到金鑰,<strong>兩種格式都有效</strong>:</p>
+<pre>CP-30D-LZQM7K-3F8E1A2B47A8B9C2      ← 舊格式(仍然有效)
+CPO-Xk3f...(一長串英數字)           ← v1.8.8 起的新格式</pre>
+
+<p>不管拿到哪一種,都直接貼進設定頁即可,啟用方式完全相同。</p>
+
+<table>
+<thead><tr><th>金鑰類型</th><th>說明</th></tr></thead>
+<tbody>
+<tr><td><code>CP-3D-...</code></td><td>3 天試用方案</td></tr>
+<tr><td><code>CP-7D-...</code></td><td>7 天 / 短期方案</td></tr>
+<tr><td><code>CP-30D-...</code></td><td>月方案</td></tr>
+<tr><td><code>CP-90D-...</code></td><td>季方案</td></tr>
+<tr><td><code>CP-365D-...</code></td><td>年方案</td></tr>
+<tr><td><code>CPO-...</code></td><td>新格式(天數不寫在金鑰裡,以你購買的方案為準)</td></tr>
+</tbody>
+</table>
+
+<!-- ===================== 6. Step 4 ===================== -->
+<h1 id="sec6">Step 4:設定擴充功能</h1>
+
+<h3>4-1 打開設定頁</h3>
+<p>點擴充功能圖示 → 右上 <strong>⚙ 齒輪</strong></p>
+
+<h3>4-2 填入欄位</h3>
+<table>
+<thead><tr><th>欄位</th><th>填什麼</th></tr></thead>
+<tbody>
+<tr><td><strong>License Key</strong></td><td>作者寄給你的金鑰</td></tr>
+<tr><td><strong>Access Key</strong></td><td>Partners 後台的 Access Key</td></tr>
+<tr><td><strong>Secret Key</strong></td><td>Partners 後台的 Secret Key(顯示成黑點)</td></tr>
+<tr><td><strong>市場別</strong></td><td>選 <strong>TW — 台灣酷澎</strong>(重要!不要選 KR)</td></tr>
+<tr><td><strong>Sub ID</strong></td><td>選填,分流追蹤用</td></tr>
+</tbody>
+</table>
+
+<h3>4-3 按「儲存」+「測試 API」</h3>
+<p>全部填好 → 紅色「儲存」→ 綠色「測試 API」→ 看到「<strong>✅ API 通了!</strong>」就完成。</p>
+
+<div class="page-break"></div>
+
+<!-- ===================== 7. Step 5 ===================== -->
+<h1 id="sec7">Step 5:開始產生分潤連結</h1>
+
+<h3>5-1 打開任意酷澎商品頁</h3>
+<p>例如:<code>https://www.tw.coupang.com/products/8051234567</code></p>
+
+<h3>5-2 點擴充功能圖示</h3>
+<p>popup 應該顯示:</p>
+<ul>
+  <li><span class="led led-green"></span> <strong>綠色圓點</strong></li>
+  <li>標題:<strong>已啟用 · 剩 XX 天</strong>(或「永久版」)</li>
+</ul>
+
+<h3>5-3 按「產生分潤網址」</h3>
+<p>按下後 1~3 秒,下方會出現 3 個欄位:</p>
+<ul>
+  <li><strong>商品標題</strong>:自動擷取</li>
+  <li><strong>短網址</strong>:<code>https://coupa.ng/cmOzbn</code></li>
+  <li><strong>長網址</strong>:完整 deeplink</li>
+</ul>
+
+<h3>5-4 按複製按鈕</h3>
+<p>按鈕變綠 + 文字變「<strong>✓ 已複製</strong>」+ 綠色光暈,持續 2 秒。</p>
+<p>直接 <strong>Ctrl+V</strong> 貼到 LINE、IG、FB、Threads 即可使用。</p>
+
+<!-- ===================== 8. 一鍵複製貼文 ===================== -->
+<h1 id="sec8">一鍵複製貼文格式</h1>
+
+<p>popup 最下面紅色大按鈕:<strong>「複製貼文格式 (標題 + 短網址)」</strong></p>
+
+<p>按下去複製到剪貼簿(v1.8.7 起格式全面升級):</p>
+<pre>黑松 沙士, 245ml, 24罐 ($18/罐)
+原價$540 → $432 (8折)
+https://coupa.ng/cmOzbn</pre>
+
+<p>各部分<strong>有資料才會出現</strong>,不用自己刪:</p>
+
+<table>
+<thead><tr><th>內容</th><th>什麼時候會有</th></tr></thead>
+<tbody>
+<tr><td><code>($18/罐)</code> 單價</td><td>標題裡有數量(24罐、12入…)就自動換算</td></tr>
+<tr><td><code>原價$540 → $432 (8折)</code> 折扣行</td><td>商品頁有劃線原價就自動帶入(台灣折數寫法)</td></tr>
+</tbody>
+</table>
+
+<p>直接貼到 IG / Threads / LINE / FB,<strong>完美貼文格式</strong>,省下手動排版。</p>
+
+<div class="callout info">
+💡 <strong>三個地方複製的內容完全一致</strong>:popup 的「複製貼文格式」、截圖工具列、追蹤儀表板的 📋,用哪個都一樣。
+</div>
+
+<div class="page-break"></div>
+
+<!-- ===================== 9. 短文案產生器 ===================== -->
+<h1 id="sec9">✏️ 短文案產生器<span class="new-tag" style="vertical-align:middle">v1.8.8</span></h1>
+
+<div class="callout new">
+🎉 除了標準貼文格式,工具還能幫你生出<strong>可直接發文的推廣短句</strong>。v1.8.9 句庫大擴充,句子更自然。
+</div>
+
+<h3>在 popup 使用</h3>
+<p>產生分潤網址後,下方會出現 <strong>3 張短文案卡</strong>,每張是一段完整的推廣文(開頭吸睛句 + 商品資訊 + 👉 短網址)。</p>
+
+<table>
+<thead><tr><th>操作</th><th>效果</th></tr></thead>
+<tbody>
+<tr><td>點任一張卡</td><td>整段複製到剪貼簿</td></tr>
+<tr><td>按「🔄 換一批」</td><td>換 3 張新的</td></tr>
+</tbody>
+</table>
+
+<h3>在截圖工具列使用</h3>
+<p>按紫色「<strong>✏️ 短文案</strong>」按鈕,會跳出短文案面板,邊看商品邊挑句子。</p>
+
+<h3>它怎麼寫出來的?</h3>
+<ul>
+  <li><strong>完全本機運算</strong>:不呼叫任何 AI、不需要網路、你的資料不會送出去</li>
+  <li>句庫依<strong>商品分類</strong>自動挑選(飲料、食品、生活日用……各有專屬句型,不會把「喝完再買」套到衛生紙上)</li>
+  <li>四種風格混搭:口語閒聊 / 痛點型 / 數字衝擊型 / 生活場景型</li>
+  <li>自動帶入現價、單價、折數等真實數字</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- ===================== 10. 截圖工具 ===================== -->
+<h1 id="sec10">📸 截圖工具</h1>
+
+<div class="callout new">
+🎉 <strong>v1.7.0 新功能</strong>:可以在酷澎頁面框選任意區域,截圖直接複製到剪貼簿,無需另存檔案,貼到 IG/FB/LINE/Threads 不用再開截圖軟體。
+</div>
+
+<div class="feature-card">
+  <div class="title">🚀 啟用方式</div>
+  <ol>
+    <li>點擴充功能圖示打開 popup</li>
+    <li>按下中間的「<strong>📸 啟用截圖工具</strong>」灰色按鈕</li>
+    <li>按鈕變綠色「<strong>✕ 關閉截圖工具</strong>」</li>
+    <li><strong>所有酷澎分頁</strong>會自動出現一個紅色方框</li>
+  </ol>
+</div>
+
+<h3>使用方式</h3>
+<table>
+<thead><tr><th>操作</th><th>效果</th></tr></thead>
+<tbody>
+<tr><td>拖曳方框中間</td><td>移動位置</td></tr>
+<tr><td>拖曳 8 個白色圓點</td><td>縮放大小</td></tr>
+<tr><td>框左下角顯示尺寸</td><td>例如「850 × 600」</td></tr>
+<tr><td>按 <strong>📸 截圖複製</strong></td><td>截取框內區域 → 自動複製到剪貼簿</td></tr>
+<tr><td><strong>Ctrl+V</strong> 貼任何地方</td><td>IG / Threads / LINE / 小畫家 / Word 都行</td></tr>
+<tr><td>按「✕ 關閉截圖模式」</td><td>所有酷澎分頁紅框消失</td></tr>
+<tr><td>按 <strong>ESC</strong></td><td>同上,快速關閉</td></tr>
+</tbody>
+</table>
+
+<h3>工具列上的五顆按鈕</h3>
+<table>
+<thead><tr><th>按鈕</th><th>功能</th></tr></thead>
+<tbody>
+<tr><td><strong>📸 截圖複製</strong>(紅色)</td><td>截取紅框內區域到剪貼簿</td></tr>
+<tr><td><strong>🔗 連結+標題</strong>(藍色,v1.7.2)</td><td>一鍵產生分潤連結+標題並複製,不用開 popup</td></tr>
+<tr><td><strong>✏️ 短文案</strong>(紫色,v1.8.8)</td><td>跳出短文案面板(見上一章)</td></tr>
+<tr><td><strong>☆ 追蹤價格</strong>(橘色,v1.9.0)<span class="new-tag" style="vertical-align:middle">NEW</span></td><td>一鍵把這個商品加入價格追蹤,追蹤中會變綠色「★ 追蹤中」</td></tr>
+<tr><td><strong>✕ 關閉截圖模式</strong></td><td>所有分頁的紅框一起消失</td></tr>
+</tbody>
+</table>
+
+<div class="feature-card">
+  <div class="title">🔗 一鍵產生分潤連結(v1.7.2 新增)</div>
+  <p>在任何酷澎商品頁直接按藍色按鈕,自動完成這 4 件事:</p>
+  <ol>
+    <li>呼叫 Coupang Partners 官方 API 產生你的分潤連結</li>
+    <li>從當前商品頁擷取商品標題</li>
+    <li>組合成「商品標題 + 短網址」貼文格式</li>
+    <li>寫到剪貼簿(按鈕變綠 ✓ 已複製貼文)</li>
+  </ol>
+  <p>之後 <strong>Ctrl+V</strong> 貼到 LINE / IG / Threads / FB 就完成了。不用再打開擴充功能 popup。</p>
+  <p style="color:#65676b;font-size:12px;">⚠️ 此按鈕只在 <strong>商品詳細頁</strong> (<code>/products/數字ID</code>) 才能成功。其他頁(分類頁/搜尋頁/首頁)會跳提示視窗。</p>
+</div>
+
+<h3>🏷️ 單價標貼(v1.8.7 新增)</h3>
+<p>截圖會自動在角落加上<strong>黃色單價標貼</strong>(例如 <code>$18/罐</code>),貼文自帶說服力。標貼的開關、位置(可拖曳)、字體大小和顏色都在設定頁「<strong>🎨 截圖單價標貼設定</strong>」調整。</p>
+
+<h3>🔄 跨分頁同步</h3>
+<ul>
+  <li>啟用截圖工具後,<strong>所有酷澎分頁</strong>自動出現紅框(不只是當前分頁)</li>
+  <li>在分頁 A 拖曳調整大小 → 分頁 B、C 的紅框會 <strong>同步</strong> 到相同位置/大小</li>
+  <li>開新酷澎分頁也會自動出現紅框</li>
+  <li>按關閉 → 所有分頁紅框同時消失</li>
+</ul>
+
+<h3>適合做什麼</h3>
+<ul>
+  <li>截圖商品圖片配貼文(不用另開截圖軟體)</li>
+  <li>截評論截推薦人數做說服力</li>
+  <li>截 Partners 後台「我這個月分潤多少」做炫耀文</li>
+  <li>截商品價格比較給朋友看</li>
+</ul>
+
+<div class="callout">
+⚠️ 截圖只在 <strong>酷澎網站</strong> (<code>*.coupang.com</code>) 運作。其他網站(Threads、IG、Google)無法使用,這是設計上的安全考量。
+</div>
+
+<div class="page-break"></div>
+
+<!-- ===================== 11. 價格追蹤 NEW ===================== -->
+<h1 id="sec11">📊 價格追蹤<span class="new-tag" style="vertical-align:middle">NEW v1.9.0</span></h1>
+
+<div class="callout new">
+🎉 <strong>v1.9.0 新功能</strong>:選定商品後,系統<strong>每小時自動幫你盯價</strong>:降價立刻看得到,儀表板會標出哪些商品正處在歷史低點。抓準低價的時機再發文,轉單率完全不一樣(貼文本身維持乾淨的三行格式,不會塞標記)。
+</div>
+
+<div class="feature-card">
+  <div class="title">🚀 開始追蹤(兩個入口)</div>
+  <p><strong>入口一:商品頁 popup</strong></p>
+  <ol>
+    <li>到任何酷澎商品頁,點擴充功能圖示</li>
+    <li>popup 會多一個「<strong>📊 價格走勢</strong>」區塊</li>
+    <li>按右上角「<strong>☆ 追蹤</strong>」→ 變成「<strong>★ 追蹤中</strong>」,並提示「已加入追蹤 ★ 每小時自動更新」</li>
+  </ol>
+  <p><strong>入口二:截圖工具列</strong></p>
+  <p>開啟截圖工具後,工具列直接按「<strong>☆ 追蹤價格</strong>」,變綠色「★ 追蹤中」即成功。</p>
+</div>
+
+<div class="callout info">
+💡 加入追蹤的<strong>當下就會記下第一筆價格</strong>,不用等下一輪更新。<br>
+⚠️ 只有<strong>單一商品頁</strong>能追蹤;在列表頁按會提示「這一頁不是商品頁,無法追蹤價格」。
+</div>
+
+<h3>popup 的「📊 價格走勢」區塊</h3>
+<p>在追蹤中的商品頁打開 popup 會看到:</p>
+<ul>
+  <li>迷你<strong>走勢圖</strong> + <strong>最低 / 最高</strong>價統計</li>
+  <li>目前若是統計期間最低價,出現「<strong>🔥 目前是 N 天最低價!</strong>」紅色標記</li>
+  <li>看到 🔥 就是發文的好時機;按「複製貼文格式」,折扣行會<strong>自動組進貼文</strong></li>
+</ul>
+
+<h3>追蹤儀表板</h3>
+<p>popup 底部按「<strong>📊 我的追蹤</strong>」開啟完整儀表板。</p>
+
+<p><strong>總覽區</strong>:追蹤中數量 / 🔥 目前是歷史低點 / 📉 最近有降價 / 累計降幅</p>
+
+<p><strong>兩種檢視模式</strong>(右上角切換,會記住你的選擇):</p>
+<table>
+<thead><tr><th>模式</th><th>適合</th></tr></thead>
+<tbody>
+<tr><td>▦ 卡片</td><td>商品少的時候,走勢圖大張看得爽</td></tr>
+<tr><td>☰ 清單</td><td>商品多的時候,一行一商品:標題 / 現價+單價 / 漲跌 / 最低~最高 / 迷你走勢</td></tr>
+</tbody>
+</table>
+
+<p><strong>找商品</strong>:</p>
+<ul>
+  <li>🔍 搜尋框輸入關鍵字即時過濾</li>
+  <li>「只看」篩選:全部 / 🔥 歷史低點 / 📉 有降價 / 無變動(數字即時統計)</li>
+  <li>排序:最近降價 / 降幅最大 / 最近更新 / 價格由低到高</li>
+</ul>
+
+<p><strong>每個商品都有四顆按鈕</strong>:</p>
+<table>
+<thead><tr><th>按鈕</th><th>功能</th></tr></thead>
+<tbody>
+<tr><td>📋 複製貼文</td><td>跟 popup / 截圖完全相同的貼文格式</td></tr>
+<tr><td>開啟</td><td>打開商品頁</td></tr>
+<tr><td>🔄</td><td><strong>只更新這一個</strong>商品的價格(低風險、隨時可按)</td></tr>
+<tr><td>✕</td><td>取消追蹤</td></tr>
+</tbody>
+</table>
+
+<p>標題列會顯示<strong>上次背景更新的結果</strong>(成功幾個、用什麼方式)和<strong>下次自動更新時間</strong>;頁面每 30 秒自動刷新狀態,背景更新完成後資料會自己跳出來,不用手動重整。</p>
+
+<h3>自動更新怎麼運作</h3>
+<ul>
+  <li><strong>每小時自動檢查一次</strong>,不用開著儀表板、不用任何操作</li>
+  <li>價格<strong>有變動就立刻記一筆</strong>;沒變動最多每 3 小時記一個點(避免灌水),每個商品保留最近 <strong>400 個資料點</strong>,足夠看完整月走勢</li>
+  <li>被酷澎暫時擋下(罕見)時,系統會<strong>自動退避幾小時再試</strong>,儀表板會寫明原因和恢復時間——這是保護機制,不是故障,不用處理</li>
+</ul>
+
+<div class="callout">
+💡 <strong>建議平常開著任何一個酷澎分頁</strong>:更新引擎會借用它取價,成功率最高、價格也最準(跟你頁面上看到的券後價一致)。<br>
+另外,<strong>你自己逛到追蹤中的商品頁時,擴充功能會自動記下頁面上的最新價格</strong>——不用開 popup、不用按任何鍵,日常瀏覽就是在幫走勢圖補資料。<br>
+沒開酷澎分頁時,會改用官方 Partners API(你自己的 API Key)確認價格有沒有變。官方 API 給的是<strong>未套優惠券的牌價</strong>,和頁面上的券後價不同,所以它只拿來確認「沒變」;<strong>價格變動的更新一律以你實際看到的頁面價為準</strong>。
+</div>
+
+<h3>手動更新</h3>
+<table>
+<thead><tr><th>方式</th><th>限制</th></tr></thead>
+<tbody>
+<tr><td>單一商品的 🔄</td><td>隨時可按,發文前確認最新價、新加入想立刻看走勢都用它</td></tr>
+<tr><td>「🔄 立即更新全部」</td><td><strong>45 分鐘內只能按一次</strong>(反正每小時都會自動更新一輪)</td></tr>
+</tbody>
+</table>
+
+<div class="callout">
+⚠️ <strong>為什麼全量更新要冷卻?</strong>短時間連續大量抓價<strong>很容易觸發酷澎的防爬蟲封鎖</strong>,一旦被封鎖反而幾小時抓不到價格。冷卻是保護你的追蹤器持續運作的護欄。
+</div>
+
+<h3>追蹤上限</h3>
+<p>目前<strong>所有訂閱都附 10 個商品</strong>的追蹤額度。追蹤第 11 個會顯示「追蹤清單已滿 (上限 10 個),請先移除一些」。</p>
+
+<div class="callout info">
+💡 更大額度的加購方案(50 / 100 / 200 / 500 個)<strong>即將開放</strong>,需要的話 LINE 作者登記。
+</div>
+
+<h3>你的價格資料存在哪?</h3>
+<ul>
+  <li><strong>只存在你自己電腦的瀏覽器裡</strong>,不會上傳到任何伺服器,作者也看不到</li>
+  <li>擴充功能<strong>版本更新不影響資料</strong>,會完整保留</li>
+</ul>
+
+<div class="callout danger">
+⚠️ <strong>移除(解除安裝)擴充功能會連同追蹤資料一起清掉</strong>;資料也不會跟著 Google 帳號同步到其他電腦。
+</div>
+
+<div class="page-break"></div>
+
+<!-- ===================== 12. 狀態燈號 ===================== -->
+<h1 id="sec12">狀態燈號說明</h1>
+
+<p>擴充功能 popup 左上的圓點顏色,反映目前狀態:</p>
+
+<table>
+<thead><tr><th>燈號</th><th>標題</th><th>意思</th></tr></thead>
+<tbody>
+<tr><td><span class="led led-green"></span> 綠</td><td>已啟用 · 剩 XX 天 / 永久版</td><td>一切正常</td></tr>
+<tr><td><span class="led led-yellow"></span> 黃</td><td>已啟用 / 目前不在酷澎頁面</td><td>設定 OK,但不在商品頁</td></tr>
+<tr><td><span class="led led-yellow"></span> 黃</td><td>該網頁不能產生分潤連結</td><td>商品列表頁/分類頁不能產</td></tr>
+<tr><td><span class="led led-red"></span> 紅</td><td>尚未設定</td><td>沒填 Key</td></tr>
+<tr><td><span class="led led-red"></span> 紅</td><td>需要授權金鑰</td><td>沒填 License Key</td></tr>
+<tr><td><span class="led led-red"></span> 紅</td><td>金鑰已過期</td><td>License 到期</td></tr>
+</tbody>
+</table>
+
+<p>工具列上的擴充功能圖示也會顯示 <strong>ON / OFF</strong> 角標。</p>
+
+<!-- ===================== 13. 設定頁完整說明 ===================== -->
+<h1 id="sec13">設定頁完整說明</h1>
+
+<h3>🔑 授權金鑰 (License Key)</h3>
+<p>作者寄給你的金鑰,邊打字邊即時驗證。</p>
+
+<h3>🔐 Coupang Partners API</h3>
+<ul>
+  <li><strong>Access Key</strong>:UUID 格式</li>
+  <li><strong>Secret Key</strong>:點右邊「顯示」可切換可見</li>
+  <li><strong>市場別</strong>:TW(台灣) / KR(韓國) → <strong>必選 TW</strong></li>
+  <li><strong>Sub ID</strong>:選填,分流追蹤用</li>
+</ul>
+
+<h3>🎨 截圖單價標貼設定(v1.8.7 新增)</h3>
+<ul>
+  <li>開關截圖上的黃色單價標貼</li>
+  <li>預覽區<strong>直接拖曳標貼</strong>調整位置</li>
+  <li>字體大小、文字顏色、底色都可以改</li>
+</ul>
+
+<h3>三顆按鈕</h3>
+<ul>
+  <li><strong>儲存</strong>(紅):存進 Chrome 本機(你自己的,不是我的)</li>
+  <li><strong>測試 API</strong>(綠):實際打一次 API</li>
+  <li><strong>清除</strong>(灰):兩段式按鈕,3 秒內再點一次才真的清除(防呆模式)</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- ===================== 14. 常見問題 ===================== -->
+<h1 id="sec14">常見問題排除</h1>
+
+<h3>Q1:為什麼按「測試 API」失敗?</h3>
+<table>
+<thead><tr><th>錯誤</th><th>怎麼修</th></tr></thead>
+<tbody>
+<tr><td>HTTP 403: HMAC token is not for the target VDC</td><td>改成市場別 <strong>TW</strong></td></tr>
+<tr><td>HTTP 401</td><td>Access/Secret Key 錯,重新從 Partners 後台複製</td></tr>
+<tr><td>網路錯誤</td><td>確認你的網路 / 試 VPN</td></tr>
+<tr><td>金鑰簽章錯誤</td><td>跟作者確認金鑰是不是寄錯</td></tr>
+</tbody>
+</table>
+
+<h3>Q2:「該網頁不能產生分潤連結」黃燈?</h3>
+<p>Coupang 官方 API 只接受 <strong>單一商品頁</strong> (<code>/products/數字ID</code>)。首頁、分類頁、搜尋頁、活動頁都不行。</p>
+
+<h3>Q3:截圖按了沒反應?</h3>
+<ul>
+  <li>確認當前是 <strong>酷澎網站</strong>(截圖工具只在 *.coupang.com 運作)</li>
+  <li>確認 popup 上的「📸 啟用截圖工具」按鈕已經是 <strong>綠色狀態</strong></li>
+  <li>重新整理該分頁再試</li>
+</ul>
+
+<h3>Q4:截圖按了出現「複製到剪貼簿失敗」?</h3>
+<p>Chrome 安全限制需要分頁有焦點。請:</p>
+<ol>
+  <li>確認你 <strong>正在看</strong> 該分頁(焦點在這個分頁上)</li>
+  <li>按截圖前先點一下頁面任意空白處</li>
+</ol>
+
+<h3>Q5:金鑰快到期了?</h3>
+<p>擴充功能會在剩 &lt; 7 天時提示。要續約直接 LINE 作者。</p>
+
+<h3>Q6:換電腦了?</h3>
+<p>金鑰 <strong>只能綁一台裝置</strong>。換電腦:</p>
+<ol>
+  <li>LINE 作者「我換電腦了」+ 金鑰</li>
+  <li>後台解除舊裝置綁定(5 分鐘內)</li>
+  <li>新電腦重新貼金鑰啟用</li>
+</ol>
+
+<h3>Q7:金鑰被盜用?</h3>
+<p>立刻 LINE 作者!後台撤銷該金鑰,已啟用的所有裝置會在 24 小時內失效。免費補發新金鑰。</p>
+
+<h3>Q8:追蹤的商品都沒有自動更新?<span class="new-tag" style="vertical-align:middle">v1.9.0</span></h3>
+<ol>
+  <li>先看儀表板標題列的「上次背景更新」那行——<strong>原因都寫在那裡</strong></li>
+  <li>最常見:<strong>沒有開著任何酷澎分頁</strong>。開一個酷澎分頁放著(任何頁面都行),下一輪就會恢復</li>
+  <li>如果顯示「被酷澎擋下、幾點後再試」→ 這是自動退避保護,時間到會自己恢復,不用處理</li>
+</ol>
+
+<h3>Q9:儀表板出現「價格變動過大,待下一輪確認」?<span class="new-tag" style="vertical-align:middle">v1.9.0</span></h3>
+<p><strong>這是正常的防呆機制,不是故障。</strong>抓到的價格跟歷史紀錄差超過 30% 時(可能是抓錯、也可能是真的大特價),系統會先暫存、下一輪再抓一次,兩次一致才寫進紀錄,避免錯誤價格污染你的走勢圖。</p>
+
+<h3>Q10:按「立即更新全部」說要再等幾十分鐘?<span class="new-tag" style="vertical-align:middle">v1.9.0</span></h3>
+<p>全量更新有 <strong>45 分鐘冷卻</strong>(防止觸發酷澎封鎖)。反正每小時都會自動更新一輪;急著看<strong>單一商品</strong>的最新價,按那個商品自己的 🔄 就好,它不受冷卻限制。</p>
+
+<h3>Q11:儀表板的價格跟商品頁上的不一樣?<span class="new-tag" style="vertical-align:middle">v1.9.0</span></h3>
+<p>儀表板顯示的是<strong>上次檢查時</strong>的價格,最多落後一輪(約 1 小時)。要確認即時價格,按該商品的 🔄 更新一下。</p>
+
+<h3>Q12:換電腦 / 重灌後追蹤資料還在嗎?<span class="new-tag" style="vertical-align:middle">v1.9.0</span></h3>
+<p><strong>不在。</strong>價格資料只存在原本那台電腦的瀏覽器裡(隱私設計,不上傳伺服器),不會跟著金鑰或 Google 帳號走。移除擴充功能也會清掉資料;一般的<strong>版本更新則完全不影響</strong>。</p>
+
+<h3>Q13:短文案是 AI 寫的嗎?會不會把我的資料傳出去?</h3>
+<p>不是 AI、不連網。句庫內建在擴充功能裡,<strong>完全在你的電腦上運算</strong>,只是自動帶入商品的真實價格數字。</p>
+
+<div class="page-break"></div>
+
+<!-- ===================== 15. 帳戶管理 ===================== -->
+<h1 id="sec15">帳戶管理</h1>
+
+<h3>換電腦流程</h3>
+<ol>
+  <li>LINE 作者「我要換電腦」+ 金鑰</li>
+  <li>作者後台解除舊裝置</li>
+  <li>新電腦安裝擴充功能 → 設定頁貼同支金鑰 → 啟用成功</li>
+</ol>
+<div class="callout danger">⚠️ <strong>解除綁定金鑰只限一次</strong></div>
+
+<h3>續約流程</h3>
+<ol>
+  <li>收到「快到期」提醒</li>
+  <li>LINE 作者「我要續約 [方案]」</li>
+  <li>付款 → 收新金鑰</li>
+  <li>設定頁把舊金鑰換成新的 → 儲存</li>
+  <li>無縫接續</li>
+</ol>
+
+<h3>撤銷自己的金鑰</h3>
+<ol>
+  <li>LINE 作者「請撤銷我的金鑰」</li>
+  <li>後台一鍵撤銷</li>
+  <li>24 小時內失效</li>
+  <li>免費補發新金鑰</li>
+</ol>
+
+<!-- ===================== 16. 安全與隱私 ===================== -->
+<h1 id="sec16">安全與隱私</h1>
+
+<ul>
+  <li>✅ API Key 只存在 Chrome 的 <code>chrome.storage.sync</code>,加密儲存</li>
+  <li>✅ 作者 <strong>看不到也拿不到</strong> 你的 API Key</li>
+  <li>✅ 所有 API 呼叫從你瀏覽器 <strong>直接</strong> 送到 Coupang 官方,不經過第三方</li>
+  <li>✅ 截圖功能:<strong>只在你按下「截取」時</strong> 才複製剪貼簿,不會背景偷拍</li>
+  <li>✅ 價格追蹤資料 <strong>只存在你的電腦</strong>(chrome.storage.local),不上傳任何伺服器、沒有任何分析追蹤</li>
+  <li>✅ 價格更新的 API 備援用的是 <strong>你自己的 Partners 憑證</strong>,跟產生連結同一組,一樣不經過第三方</li>
+  <li>✅ 短文案產生器 <strong>完全本機運算</strong>,不呼叫 AI、不連網</li>
+  <li>✅ 隱私權政策:<code>https://pidan0126.github.io/coupang-partners-extension/PRIVACY.html</code></li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- ===================== 17. 版本紀錄 ===================== -->
+<h1 id="sec17">版本更新紀錄</h1>
+
+<div class="feature-card">
+  <div class="title">v1.9.0(2026-08-29)— 目前版本</div>
+  <ul>
+    <li>📊 <strong>全新價格追蹤</strong>:商品頁一鍵 ☆ 追蹤,每小時自動盯價</li>
+    <li>🔥 歷史低點自動標示在儀表板,貼文文案直接組好(標題＋單價＋原價→特價折扣行＋短網址)</li>
+    <li>📋 <strong>追蹤儀表板</strong>:卡片⇄清單雙模式、走勢圖、搜尋、狀態篩選、排序</li>
+    <li>🔄 單一商品隨時手動更新;全量更新 45 分鐘冷卻護欄</li>
+    <li>🛡️ 自動退避 + 官方 API 備援 + 可疑價格緩衝,三層保護追蹤不中斷</li>
+    <li>所有訂閱隨附 <strong>10 個</strong>追蹤額度,更大額度加購即將開放</li>
+  </ul>
+</div>
+
+<h3>v1.8.9(2026-08-28)</h3>
+<ul>
+  <li>✏️ 短文案<strong>句庫大擴充</strong>:四種風格混搭(口語閒聊 / 痛點 / 數字衝擊 / 生活場景),飲料與食品分開選句,句子更自然</li>
+</ul>
+
+<h3>v1.8.8(2026-08-27)</h3>
+<ul>
+  <li>📋 貼文新增<strong>折扣行</strong>:「原價$540 → $432 (8折)」(台灣折數寫法)</li>
+  <li>✏️ 新增<strong>短文案產生器</strong>:popup 3 張短文案卡 + 🔄 換一批;截圖工具列 ✏️ 按鈕;完全本機運算</li>
+  <li>🏷️ 移除標題浮水印(單價標貼保留)</li>
+  <li>🔐 金鑰系統強化:驗證全面改由伺服器把關,新增 CPO- 新格式金鑰(<strong>舊金鑰完全不受影響</strong>)</li>
+</ul>
+
+<h3>v1.8.7(2026-08-24)</h3>
+<ul>
+  <li>📋 貼文格式帶<strong>單價</strong>:標題後自動加 <code>($18/罐)</code> 這類單價標註</li>
+  <li>🏷️ 截圖新增<strong>黃色單價標貼</strong>(設定頁可調位置、大小、顏色)</li>
+</ul>
+
+<h3>v1.7.2(2026-05-18)</h3>
+<ul>
+  <li>🔗 <strong>截圖工具列加「產生分潤連結+標題並複製」按鈕</strong>:不用再開 popup,直接在頁面上一鍵搞定貼文格式</li>
+  <li>🐛 修正部分新列在 Google Sheet 上沒被反灰標示為過期的問題(後端 Apps Script 條件式格式改開放範圍)</li>
+</ul>
+
+<h3>v1.7.1(2026-05-13)</h3>
+<ul>
+  <li>📸 新增截圖工具:在酷澎頁面框選任意區域 → 一鍵複製到剪貼簿</li>
+  <li>🔄 跨分頁同步:所有酷澎分頁的截圖框大小/位置自動連動</li>
+  <li>🔒 簽章驗證強化</li>
+</ul>
+
+<h3>v1.6.0(2026-05-11)</h3>
+<ul>
+  <li>🔑 全部金鑰類型統一裝置上限 = 1 台</li>
+</ul>
+
+<h3>v1.5.0</h3>
+<ul>
+  <li>線上啟用驗證系統(防多裝置盜用)</li>
+</ul>
+
+<h3>v1.4.0</h3>
+<ul>
+  <li>授權金鑰系統</li>
+</ul>
+
+<h3>v1.3.0</h3>
+<ul>
+  <li>自動擷取商品標題 + 一鍵複製貼文格式</li>
+</ul>
+
+<h3>v1.2.0</h3>
+<ul>
+  <li>完整 Coupang Partners OpenAPI 整合</li>
+</ul>
+
+<!-- ===================== 聯絡 ===================== -->
+<h1>📞 聯絡我</h1>
+
+<ul>
+  <li><strong>LINE</strong>:[pidan0126]</li>
+  <li><strong>Email</strong>:[pidan0126@gmail.com]</li>
+  <li><strong>回應時間</strong>:通常 24 小時內</li>
+</ul>
+
+<p>有任何問題、bug、功能建議都歡迎告訴我!</p>
+
+<div class="footer">
+  手冊版本:v1.9.0 / 2026-08-29<br>
+  © 2026 酷澎分潤連結產生器
+</div>
+
+</body>
+</html>
