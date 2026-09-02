@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<title>酷澎分潤連結產生器 — 完整操作手冊 v1.9.0</title>
+<title>酷澎分潤連結產生器 — 完整操作手冊 v1.9.5</title>
 <style>
   /* ============== 列印優化:Chrome 列印設定建議 A4、邊界「預設」、勾「背景圖形」 ============== */
   @page {
@@ -222,12 +222,12 @@
   .toc ol { margin: 8px 0 0 0; }
   .toc a { color: #1c1e21; text-decoration: none; }
   .toc a:hover { color: #ff3e3e; text-decoration: underline; }
-  .toc .new-tag {
+  .new-tag {
     display: inline-block;
     background: #ff3e3e; color: #fff;
     font-size: 10px; padding: 1px 6px;
     border-radius: 4px; margin-left: 6px;
-    vertical-align: middle;
+    vertical-align: middle; font-weight: 600; line-height: 1.6;
   }
 
   /* 新功能高亮區塊 */
@@ -263,9 +263,9 @@
   <div class="logo">C</div>
   <h1>酷澎分潤連結產生器</h1>
   <div class="subtitle">完整操作手冊</div>
-  <div class="meta">v1.9.0 · 2026-08-29 · 繁體中文</div>
+  <div class="meta">v1.9.5 · 2026-09-02 · 繁體中文</div>
   <div>
-    <span class="new-badge">📊 NEW v1.9.0 全新「價格追蹤」:每小時自動盯價 · 歷史低價標記 · 走勢儀表板</span>
+    <span class="new-badge">📊 NEW v1.9.5「追蹤方案」:追蹤數可加購到 500 個 · ✏️ 新增條列版短文案 · ⚡ 工具列連結秒出</span>
   </div>
 </div>
 
@@ -281,9 +281,9 @@
     <li><a href="#sec6">Step 4:設定擴充功能</a></li>
     <li><a href="#sec7">Step 5:開始產生分潤連結</a></li>
     <li><a href="#sec8">一鍵複製貼文格式</a></li>
-    <li><a href="#sec9">✏️ 短文案產生器<span class="new-tag">v1.8.8</span></a></li>
+    <li><a href="#sec9">✏️ 短文案產生器<span class="new-tag">v1.9.4 條列版</span></a></li>
     <li><a href="#sec10">📸 截圖工具</a></li>
-    <li><a href="#sec11">📊 價格追蹤<span class="new-tag">NEW v1.9.0</span></a></li>
+    <li><a href="#sec11">📊 價格追蹤<span class="new-tag">NEW v1.9.5 追蹤方案</span></a></li>
     <li><a href="#sec12">狀態燈號說明</a></li>
     <li><a href="#sec13">設定頁完整說明</a></li>
     <li><a href="#sec14">常見問題排除</a></li>
@@ -313,8 +313,9 @@
   <li>✅ 一鍵複製成 <strong>貼文格式</strong>(標題+單價+折扣行+短網址)</li>
   <li>✅ 內建 <strong>截圖工具</strong>,框選酷澎頁面任意區域複製到剪貼簿</li>
   <li>✅ 截圖工具列直接 <strong>一鍵產生分潤連結 + 標題並複製</strong>,不用再開 popup</li>
-  <li>✅ <strong>短文案產生器</strong>:一鍵生出可直接發的推廣句,完全本機運算、不用 AI</li>
-  <li>✅ <span class="new-tag" style="vertical-align:baseline">NEW</span> <strong>價格追蹤</strong>:選定商品每小時自動盯價,儀表板一眼看出誰跌到歷史低點,附完整走勢圖</li>
+  <li>✅ <strong>短文案產生器</strong>:一鍵生出可直接發的推廣句,<strong>口語 / 條列</strong>兩種版型,完全本機運算、不用 AI</li>
+  <li>✅ <strong>價格追蹤</strong>:選定商品每小時自動盯價,儀表板一眼看出誰跌到歷史低點,附完整走勢圖</li>
+  <li>✅ <span class="new-tag" style="vertical-align:baseline">NEW</span> <strong>追蹤方案</strong>:隨附 10 個追蹤額度,可加購到 50 / 100 / 200 / 500 個</li>
 </ul>
 
 <!-- ===================== 2. 使用前準備 ===================== -->
@@ -476,32 +477,58 @@ https://coupa.ng/cmOzbn</pre>
 <div class="page-break"></div>
 
 <!-- ===================== 9. 短文案產生器 ===================== -->
-<h1 id="sec9">✏️ 短文案產生器<span class="new-tag" style="vertical-align:middle">v1.8.8</span></h1>
+<h1 id="sec9">✏️ 短文案產生器<span class="new-tag" style="vertical-align:middle">v1.9.4 條列版</span></h1>
 
 <div class="callout new">
-🎉 除了標準貼文格式,工具還能幫你生出<strong>可直接發文的推廣短句</strong>。v1.8.9 句庫大擴充,句子更自然。
+🎉 除了標準貼文格式,工具還能幫你生出<strong>可直接發文的推廣短句</strong>。<strong>v1.9.4 起有兩套版型</strong>:原本的「口語閒聊版」,和新的「條列賣點版」(適合社團、長貼文),自己切換、會記住你的選擇。
 </div>
 
 <h3>在 popup 使用</h3>
-<p>產生分潤網址後,下方會出現 <strong>3 張短文案卡</strong>,每張是一段完整的推廣文(開頭吸睛句 + 商品資訊 + 👉 短網址)。</p>
+<p>產生分潤網址後,下方會出現 <strong>3 張短文案卡</strong>,每張是一段完整的推廣文。「✏️ 短文案」標題右邊有 <strong>口語 / 條列</strong> 切換鈕,按下去立刻換版型,不用重新產生連結。</p>
 
 <table>
 <thead><tr><th>操作</th><th>效果</th></tr></thead>
 <tbody>
 <tr><td>點任一張卡</td><td>整段複製到剪貼簿</td></tr>
-<tr><td>按「🔄 換一批」</td><td>換 3 張新的</td></tr>
+<tr><td>按「🔄 換一批」</td><td>換 3 張新的(兩種版型都可以換)</td></tr>
+<tr><td>按「口語 / 條列」</td><td>切換版型,選擇會記住;截圖工具列的面板也同步</td></tr>
 </tbody>
 </table>
 
+<h3>兩套版型差在哪</h3>
+<table>
+<thead><tr><th></th><th>口語閒聊版(預設)</th><th>條列賣點版(v1.9.4 新)</th></tr></thead>
+<tbody>
+<tr><td>長度</td><td>3~4 行</td><td>7~9 行</td></tr>
+<tr><td>語氣</td><td>隨手分享、限動風</td><td>KOL / 社團貼文風</td></tr>
+<tr><td>價格</td><td>有(原價→特價、單價、折數)</td><td><strong>完全不放價格</strong>(貼文不會過期)</td></tr>
+<tr><td>完整標題</td><td>沒有</td><td><strong>最後一行放完整商品標題</strong>,方便買家搜尋比對</td></tr>
+</tbody>
+</table>
+
+<p>條列版長這樣:</p>
+<pre>素顏霜找到好貨了❤️
+✨ 素顏感修飾,出門前擦一下就有氣色
+🍃 輕盈質地,日常使用不會有負擔感
+❤️ 輕盈柔霧妝感,打造自然素顏感
+📦 50g × 2個,一次入手兩個更方便
+🇹🇼 台灣公司貨,想試試看的可以收‼️
+https://coupa.ng/xxxxxx
+OBgE 台灣公司貨 自然遮瑕素顏霜 輕盈柔霧版 50g, 輕盈柔霧, 2個</pre>
+
+<div class="callout info">
+💡 條列版第一行是「品類詞 + 鉤子」,<strong>不是代言人名字</strong>(擴充功能無法從商品頁知道誰代言)。想放「XXX❤️」這種開頭,貼出去前自己改第一行就好。
+</div>
+
 <h3>在截圖工具列使用</h3>
-<p>按紫色「<strong>✏️ 短文案</strong>」按鈕,會跳出短文案面板,邊看商品邊挑句子。</p>
+<p>按紫色「<strong>✏️ 短文案</strong>」按鈕,會跳出短文案面板,邊看商品邊挑句子。面板上同樣有 口語 / 條列 切換,跟 popup 共用同一個設定。</p>
 
 <h3>它怎麼寫出來的?</h3>
 <ul>
   <li><strong>完全本機運算</strong>:不呼叫任何 AI、不需要網路、你的資料不會送出去</li>
-  <li>句庫依<strong>商品分類</strong>自動挑選(飲料、食品、生活日用……各有專屬句型,不會把「喝完再買」套到衛生紙上)</li>
-  <li>四種風格混搭:口語閒聊 / 痛點型 / 數字衝擊型 / 生活場景型</li>
-  <li>自動帶入現價、單價、折數等真實數字</li>
+  <li>句庫依<strong>商品分類</strong>自動挑選(飲料、食品、零食、生活日用、美妝……各有專屬句型,不會把「喝完再買」套到衛生紙上)</li>
+  <li>口語版四種風格混搭:口語閒聊 / 痛點型 / 數字衝擊型 / 生活場景型,自動帶入現價、單價、折數等真實數字</li>
+  <li>條列版的賣點句由<strong>標題裡的關鍵字</strong>觸發(「遮瑕」「加厚」「快充」…),一則之內主題不重複、三則之間彼此不一樣;規格行(📦)直接從標題的數量解析</li>
 </ul>
 
 <div class="page-break"></div>
@@ -542,9 +569,9 @@ https://coupa.ng/cmOzbn</pre>
 <thead><tr><th>按鈕</th><th>功能</th></tr></thead>
 <tbody>
 <tr><td><strong>📸 截圖複製</strong>(紅色)</td><td>截取紅框內區域到剪貼簿</td></tr>
-<tr><td><strong>🔗 連結+標題</strong>(藍色,v1.7.2)</td><td>一鍵產生分潤連結+標題並複製,不用開 popup</td></tr>
+<tr><td><strong>🔗 連結+標題</strong>(藍色,v1.7.2)</td><td>一鍵產生分潤連結+標題並複製,不用開 popup。<strong>v1.9.3 起</strong>開框後 1~2 秒連結會先在背景備好,按鈕變成「<strong>⚡ 連結+標題</strong>」——看到 ⚡ 再按,幾乎是瞬間完成</td></tr>
 <tr><td><strong>✏️ 短文案</strong>(紫色,v1.8.8)</td><td>跳出短文案面板(見上一章)</td></tr>
-<tr><td><strong>☆ 追蹤價格</strong>(橘色,v1.9.0)<span class="new-tag" style="vertical-align:middle">NEW</span></td><td>一鍵把這個商品加入價格追蹤,追蹤中會變綠色「★ 追蹤中」</td></tr>
+<tr><td><strong>☆ 追蹤價格</strong>(橘色,v1.9.0)</td><td>一鍵把這個商品加入價格追蹤,追蹤中會變綠色「★ 追蹤中」</td></tr>
 <tr><td><strong>✕ 關閉截圖模式</strong></td><td>所有分頁的紅框一起消失</td></tr>
 </tbody>
 </table>
@@ -559,6 +586,7 @@ https://coupa.ng/cmOzbn</pre>
     <li>寫到剪貼簿(按鈕變綠 ✓ 已複製貼文)</li>
   </ol>
   <p>之後 <strong>Ctrl+V</strong> 貼到 LINE / IG / Threads / FB 就完成了。不用再打開擴充功能 popup。</p>
+  <p><strong>⚡ 就緒指示(v1.9.3)</strong>:開著截圖框就代表你正在工作,所以一打開框、或切到某個商品頁停留一下,連結就先在背景產好。按鈕亮成「⚡ 連結+標題」就是準備好了,按下去秒出;換商品時 ⚡ 會先收回、幾秒後重新亮起。</p>
   <p style="color:#65676b;font-size:12px;">⚠️ 此按鈕只在 <strong>商品詳細頁</strong> (<code>/products/數字ID</code>) 才能成功。其他頁(分類頁/搜尋頁/首頁)會跳提示視窗。</p>
 </div>
 
@@ -588,10 +616,11 @@ https://coupa.ng/cmOzbn</pre>
 <div class="page-break"></div>
 
 <!-- ===================== 11. 價格追蹤 NEW ===================== -->
-<h1 id="sec11">📊 價格追蹤<span class="new-tag" style="vertical-align:middle">NEW v1.9.0</span></h1>
+<h1 id="sec11">📊 價格追蹤<span class="new-tag" style="vertical-align:middle">v1.9.5 追蹤方案</span></h1>
 
 <div class="callout new">
-🎉 <strong>v1.9.0 新功能</strong>:選定商品後,系統<strong>每小時自動幫你盯價</strong>:降價立刻看得到,儀表板會標出哪些商品正處在歷史低點。抓準低價的時機再發文,轉單率完全不一樣(貼文本身維持乾淨的三行格式,不會塞標記)。
+🎉 選定商品後,系統<strong>每小時自動幫你盯價</strong>:降價立刻看得到,儀表板會標出哪些商品正處在歷史低點。抓準低價的時機再發文,轉單率完全不一樣(貼文本身維持乾淨的三行格式,不會塞標記)。<br>
+<strong>v1.9.5 起可以加購「追蹤方案」</strong>:隨附 10 個不變,要追更多有 50 / 100 / 200 / 500 個可選,詳見本章最後的「追蹤上限與加購」。
 </div>
 
 <div class="feature-card">
@@ -622,7 +651,7 @@ https://coupa.ng/cmOzbn</pre>
 <h3>追蹤儀表板</h3>
 <p>popup 底部按「<strong>📊 我的追蹤</strong>」開啟完整儀表板。</p>
 
-<p><strong>總覽區</strong>:追蹤中數量 / 🔥 目前是歷史低點 / 📉 最近有降價 / 累計降幅</p>
+<p><strong>總覽區</strong>:追蹤中數量與你的<strong>額度</strong>(例如「3 / 10」;有加購會寫「追蹤方案 200 個」)/ 🔥 目前是歷史低點 / 📉 最近有降價 / 累計降幅。超出額度時會多一張「🧊 已凍結」卡和一段橘色說明。</p>
 
 <p><strong>兩種檢視模式</strong>(右上角切換,會記住你的選擇):</p>
 <table>
@@ -645,11 +674,12 @@ https://coupa.ng/cmOzbn</pre>
 <thead><tr><th>按鈕</th><th>功能</th></tr></thead>
 <tbody>
 <tr><td>📋 複製貼文</td><td>跟 popup / 截圖完全相同的貼文格式</td></tr>
-<tr><td>開啟</td><td>打開商品頁</td></tr>
+<tr><td>開商品頁</td><td>打開商品頁</td></tr>
 <tr><td>🔄</td><td><strong>只更新這一個</strong>商品的價格(低風險、隨時可按)</td></tr>
 <tr><td>✕</td><td>取消追蹤</td></tr>
 </tbody>
 </table>
+<p style="color:#65676b;font-size:13px;">🧊 <strong>凍結中的商品只有 ✕ 能按</strong>(見下方「追蹤上限與加購」):不會更新價格,📋 / 開商品頁 / 🔄 都反灰。</p>
 
 <p>標題列會顯示<strong>上次背景更新的結果</strong>(成功幾個、用什麼方式)和<strong>下次自動更新時間</strong>;頁面每 30 秒自動刷新狀態,背景更新完成後資料會自己跳出來,不用手動重整。</p>
 
@@ -679,12 +709,46 @@ https://coupa.ng/cmOzbn</pre>
 ⚠️ <strong>為什麼全量更新要冷卻?</strong>短時間連續大量抓價<strong>很容易觸發酷澎的防爬蟲封鎖</strong>,一旦被封鎖反而幾小時抓不到價格。冷卻是保護你的追蹤器持續運作的護欄。
 </div>
 
-<h3>追蹤上限</h3>
-<p>目前<strong>所有訂閱都附 10 個商品</strong>的追蹤額度。追蹤第 11 個會顯示「追蹤清單已滿 (上限 10 個),請先移除一些」。</p>
+<h3>追蹤上限與加購<span class="new-tag" style="vertical-align:middle">NEW v1.9.5</span></h3>
+<p><strong>所有訂閱都隨附 10 個商品</strong>的追蹤額度。要追更多,可以加購「追蹤方案」:</p>
 
-<div class="callout info">
-💡 更大額度的加購方案(50 / 100 / 200 / 500 個)<strong>即將開放</strong>,需要的話 LINE 作者登記。
+<table>
+<thead><tr><th>方案</th><th>可追蹤商品數</th><th>價格(一次性)</th></tr></thead>
+<tbody>
+<tr><td>隨附(任何訂閱都有)</td><td>10 個</td><td>免費</td></tr>
+<tr><td>基礎款</td><td>50 個</td><td>NT$100</td></tr>
+<tr><td>輕量款</td><td>100 個</td><td>NT$180</td></tr>
+<tr><td><strong>中量款 ⭐</strong></td><td><strong>200 個</strong></td><td><strong>NT$350</strong></td></tr>
+<tr><td>重量款</td><td>500 個</td><td>NT$1,000</td></tr>
+</tbody>
+</table>
+
+<ul>
+  <li><strong>一次付費,用到你目前的金鑰到期為止</strong>:年租客戶用一整年、季租用一季、月租用一個月——同一個價格,年租最划算</li>
+  <li>額度是「總數」,已經包含隨附的 10 個(例如基礎款 = 總共可追 50 個);級距不能疊加</li>
+  <li>期中想升級(例如 50 → 200)只要補差額,續約時再決定要不要續購方案</li>
+  <li>重量款(500 個)適合商用規模:排程會分散抓價,避免觸發酷澎的封鎖</li>
+</ul>
+
+<div class="feature-card">
+  <div class="title">🛒 怎麼加購、怎麼生效</div>
+  <ol>
+    <li>LINE 私訊作者(<strong>pidan0126</strong>)說要哪一款,付款</li>
+    <li>作者在後台幫你的金鑰開通(不用換金鑰、不用重新安裝)</li>
+    <li>回到擴充功能的<strong>設定頁按一次「儲存」</strong>,立刻生效;不按的話最慢 24 小時內也會自動更新</li>
+    <li>生效後三個地方看得到:設定頁狀態列「追蹤方案 N 個商品」、popup 上方「追蹤方案 N」、儀表板第一張卡「追蹤中 · 追蹤方案 N 個」</li>
+  </ol>
 </div>
+
+<h3>超出額度會怎樣?(🧊 凍結)</h3>
+<p>追蹤到上限時再按 ☆,會提示「追蹤清單已滿(目前方案上限 N 個)。請聯絡賣方加購追蹤方案,或先移除一些商品」。</p>
+<p>如果是<strong>方案到期、額度變小</strong>(例如從 200 掉回 10),多出來的商品不會被刪除,而是<strong>凍結</strong>:</p>
+<ul>
+  <li>依加入順序,<strong>最早追蹤的前 N 個照常追</strong>,後面的顯示 🧊「已凍結」、卡片變虛線</li>
+  <li>凍結中的商品<strong>不更新價格</strong>,而且只剩「✕ 取消追蹤」能按(複製貼文、開商品頁、🔄 都反灰)</li>
+  <li><strong>資料全部保留</strong>:續購方案後自動解凍,走勢圖接著畫</li>
+  <li>不想加購也可以:取消追蹤幾個,凍結的商品就依序自動遞補解凍</li>
+</ul>
 
 <h3>你的價格資料存在哪?</h3>
 <ul>
@@ -814,6 +878,19 @@ https://coupa.ng/cmOzbn</pre>
 <h3>Q13:短文案是 AI 寫的嗎?會不會把我的資料傳出去?</h3>
 <p>不是 AI、不連網。句庫內建在擴充功能裡,<strong>完全在你的電腦上運算</strong>,只是自動帶入商品的真實價格數字。</p>
 
+<h3>Q14:儀表板有商品變成「🧊 已凍結」、按鈕都反灰?<span class="new-tag" style="vertical-align:middle">v1.9.5</span></h3>
+<p>代表你追蹤的數量<strong>超過目前方案的上限</strong>(通常是加購方案到期,或還沒開通)。資料都還在、沒有被刪;要解凍有兩個方法:<strong>加購追蹤方案</strong>(LINE 作者),或<strong>取消追蹤幾個</strong>商品,凍結的會依序自動遞補。</p>
+
+<h3>Q15:加購了,但額度沒有變?<span class="new-tag" style="vertical-align:middle">v1.9.5</span></h3>
+<ol>
+  <li>到設定頁<strong>重按一次「儲存」</strong>——這一步會立刻拿到新額度(不按的話最慢 24 小時自動更新)</li>
+  <li>設定頁狀態列應該出現「追蹤方案 N 個商品」;沒有的話,先確認作者已回覆「已開通」</li>
+  <li>還是不行 → 把設定頁狀態列的文字截圖給作者</li>
+</ol>
+
+<h3>Q16:擴充功能更新後,截圖工具列按了沒反應?<span class="new-tag" style="vertical-align:middle">v1.9.3</span></h3>
+<p>v1.9.3 起更新後會<strong>自動接上</strong>已開著的酷澎分頁,不用自己重新整理。若真的還是卡住,畫面會提示「擴充功能剛更新過,請重新整理頁面」——按 <strong>F5</strong> 就恢復,絕不會無限轉圈。</p>
+
 <div class="page-break"></div>
 
 <!-- ===================== 15. 帳戶管理 ===================== -->
@@ -864,16 +941,43 @@ https://coupa.ng/cmOzbn</pre>
 <h1 id="sec17">版本更新紀錄</h1>
 
 <div class="feature-card">
-  <div class="title">v1.9.0(2026-08-29)— 目前版本</div>
+  <div class="title">v1.9.5(2026-09)— 目前版本</div>
   <ul>
-    <li>📊 <strong>全新價格追蹤</strong>:商品頁一鍵 ☆ 追蹤,每小時自動盯價</li>
-    <li>🔥 歷史低點自動標示在儀表板,貼文文案直接組好(標題＋單價＋原價→特價折扣行＋短網址)</li>
-    <li>📋 <strong>追蹤儀表板</strong>:卡片⇄清單雙模式、走勢圖、搜尋、狀態篩選、排序</li>
-    <li>🔄 單一商品隨時手動更新;全量更新 45 分鐘冷卻護欄</li>
-    <li>🛡️ 自動退避 + 官方 API 備援 + 可疑價格緩衝,三層保護追蹤不中斷</li>
-    <li>所有訂閱隨附 <strong>10 個</strong>追蹤額度,更大額度加購即將開放</li>
+    <li>📊 <strong>追蹤方案</strong>:隨附 10 個不變,可加購 50 / 100 / 200 / 500 個;開通後設定頁按一次「儲存」即生效</li>
+    <li>🧊 超出額度的商品<strong>凍結而不刪除</strong>:不更新價格、只留 ✕,續購或移除其他商品就自動解凍</li>
+    <li>儀表板顯示「追蹤中 x / 額度」;設定頁與 popup 顯示你的方案</li>
   </ul>
 </div>
+
+<h3>v1.9.4(2026-08-30)</h3>
+<ul>
+  <li>✏️ 短文案新增<strong>條列賣點版</strong>(賣點條列 + 📦 規格 + 完整標題,不放價格),口語 / 條列 一鍵切換、會記住,popup 與截圖面板同步</li>
+  <li>條列版有主題去重與語意相似度檢查,三則彼此不重複、同一則不會自打臉</li>
+</ul>
+
+<h3>v1.9.3(2026-08-29)</h3>
+<ul>
+  <li>⚡ 截圖工具列的 🔗 改為<strong>預先產生</strong>:開框後連結先備好,按鈕亮 ⚡ 就是秒出</li>
+  <li>🔗 產生更快:授權檢查與 API 平行、同商品 10 分鐘快取、失敗不重打</li>
+  <li>更新擴充功能後,已開著的酷澎分頁<strong>自動接上新版</strong>,工具列不再卡在「產生中…」</li>
+</ul>
+
+<h3>v1.9.1 / v1.9.2(2026-08-29)</h3>
+<ul>
+  <li>修正貼文偶爾出現離譜「原價」(例如 $768,695)的問題:原價與現價差距過大一律不採用,並自動清掉舊的錯誤資料</li>
+  <li>貼文格式定案為乾淨三行(標題(單價)/ 原價→特價(折數)/ 短網址),不再塞 🔥/📉 標記;🔥 仍在儀表板與 popup 顯示</li>
+  <li>官方 API 牌價與頁面券後價分流:牌價只拿來確認「沒變」,不會污染走勢圖</li>
+</ul>
+
+<h3>v1.9.0(2026-08-29)</h3>
+<ul>
+  <li>📊 <strong>全新價格追蹤</strong>:商品頁一鍵 ☆ 追蹤,每小時自動盯價</li>
+  <li>🔥 歷史低點自動標示在儀表板,貼文文案直接組好(標題＋單價＋原價→特價折扣行＋短網址)</li>
+  <li>📋 <strong>追蹤儀表板</strong>:卡片⇄清單雙模式、走勢圖、搜尋、狀態篩選、排序</li>
+  <li>🔄 單一商品隨時手動更新;全量更新 45 分鐘冷卻護欄</li>
+  <li>🛡️ 自動退避 + 官方 API 備援 + 可疑價格緩衝,三層保護追蹤不中斷</li>
+  <li>所有訂閱隨附 <strong>10 個</strong>追蹤額度</li>
+</ul>
 
 <h3>v1.8.9(2026-08-28)</h3>
 <ul>
@@ -944,7 +1048,7 @@ https://coupa.ng/cmOzbn</pre>
 <p>有任何問題、bug、功能建議都歡迎告訴我!</p>
 
 <div class="footer">
-  手冊版本:v1.9.0 / 2026-08-29<br>
+  手冊版本:v1.9.5 / 2026-09-02<br>
   © 2026 酷澎分潤連結產生器
 </div>
 
