@@ -9,7 +9,7 @@
 ### 摘要
 
 - 本擴充功能**不收集個人資料**、不埋追蹤碼、不出售任何資料。
-- 你的 Coupang Partners API 憑證與授權金鑰**只存在你自己的瀏覽器裡**，永遠不會傳送到我們或任何第三方。
+- 你的 Coupang Partners API 憑證**只存在你自己的瀏覽器裡**，永遠不會傳送到我們或任何第三方。授權金鑰也存在你的瀏覽器裡，只有驗證授權時會送到我們的授權伺服器（見下方「授權驗證」）。
 - 本擴充功能只在兩種情況把資料送到我們的伺服器：**授權驗證**（只送金鑰與一組隨機裝置識別碼），以及**你按下 ✨AI 時**（只送目前這個商品頁上的公開商品資訊，見下方「AI 文案」）。
 - 價格追蹤的歷史、截圖、文案，**全部在你自己的電腦上產生與保存**。
 
@@ -135,7 +135,7 @@ AI 產生的文案在送到你的畫面前，會先在你的電腦上逐句檢�
 ### Summary
 
 - This extension **does not collect personal data**, contains no analytics or tracking code, and sells no data.
-- Your Coupang Partners API credentials and licence key are **stored only in your own browser** and are never sent to us or to any third party.
+- Your Coupang Partners API credentials are **stored only in your own browser** and are never sent to us or to any third party. Your licence key is also stored in your browser and is sent only to our licence server, to verify your subscription (see "Licence verification" below).
 - The extension sends data to our servers in only two cases: **licence verification** (only your key and a random device identifier), and **when you click ✨AI** (only public product information from the product page you are on; see "AI post text" below).
 - Price history, screenshots and post text are all **produced and stored on your own computer**.
 
