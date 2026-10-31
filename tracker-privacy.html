@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>隱私權政策 — 酷澎追價小幫手</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", "Microsoft JhengHei", sans-serif;
+         max-width: 760px; margin: 0 auto; padding: 32px 18px 60px; color: #1c1e21; line-height: 1.8; background: #fff; }
+  h1 { font-size: 24px; margin-bottom: 4px; }
+  h3 { font-size: 15px; margin-top: 18px; }
+  h2 { font-size: 18px; margin-top: 30px; border-bottom: 1px solid #e4e6eb; padding-bottom: 4px; }
+  .sub { color: #65676b; font-size: 14px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 8px; }
+  th, td { border: 1px solid #e4e6eb; padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { background: #f6f7f9; }
+  .box { background: #fff8e8; border: 1px solid #f4dca3; border-radius: 10px; padding: 12px 16px; }
+  code { background: #f1f2f4; padding: 1px 5px; border-radius: 4px; }
+  @media (max-width: 600px) { th, td { overflow-wrap: anywhere; } code { word-break: break-all; } }
+</style>
+</head>
+<body>
+<h1>隱私權政策 — 酷澎追價小幫手</h1>
+<div class="sub">Chrome 擴充功能「酷澎追價小幫手(by花貴賓皮蛋)」· 最後更新：2026 年 10 月 31 日</div>
+
+<p>這個擴充功能幫你追蹤酷澎 (Coupang) 台灣網站的商品價格。它不是酷澎官方的工具，跟酷澎沒有隸屬關係。下面說明它會用到哪些資料、存在哪裡、會送到哪裡。</p>
+
+<h2>一句話版本</h2>
+<div class="box">
+  你追蹤的商品和價格紀錄<b>只存在你自己的電腦</b>。你<b>自己點開</b>追蹤清單或降價通知裡的某個商品時，擴充功能會向開發者的伺服器拿一個一次性的簽名 (<b>不送任何網址</b>)，再由你的瀏覽器把那一個商品的網址送到酷澎分潤計畫，換成開發者的分潤連結。追蹤清單上的商品縮圖是你的瀏覽器直接從酷澎的圖片伺服器載入的。除此之外，我們不收集你的帳號、姓名、Email、瀏覽紀錄或任何個人資料，也不做任何分析或追蹤。
+</div>
+
+<h2>存在你電腦裡的資料</h2>
+<table>
+  <tr><th>資料</th><th>用途</th><th>存在哪裡</th></tr>
+  <tr><td>你追蹤的商品清單 (商品網址、商品名稱)</td><td>知道要幫你檢查哪些商品</td><td rowspan="5">你的 Chrome 本機儲存空間 (<code>chrome.storage.local</code>)，不會上傳</td></tr>
+  <tr><td>商品縮圖的網址 (商品頁上那張商品照片在酷澎圖片伺服器上的網址)</td><td>在追蹤清單上顯示商品圖</td></tr>
+  <tr><td>每個商品的價格紀錄 (時間、價格、原價)</td><td>畫走勢圖、判斷是不是新低價</td></tr>
+  <tr><td>你的設定 (通知、商品頁按鈕的開關)</td><td>照你的設定運作</td></tr>
+  <tr><td>產生過的分潤連結 (最多存 30 天)</td><td>同一個商品不用每次都重新產生</td></tr>
+</table>
+<p>移除擴充功能時，Chrome 會把這些資料一起刪掉。</p>
+
+<h2>擴充功能會連到哪裡</h2>
+<table>
+  <tr><th>連到哪裡</th><th>什麼時候</th><th>送出什麼</th></tr>
+  <tr><td>酷澎台灣網站 (<code>www.tw.coupang.com</code>)</td><td>每小時檢查一次你追蹤的商品 (最多 20 個，一次一個、分散在一小時裡，在你開著的酷澎分頁裡進行；被酷澎擋就自動暫停)；你打開酷澎商品頁的時候</td>
+      <td>就是一般的瀏覽網頁請求，跟你自己打開商品頁一樣。酷澎會擋擴充功能在背景直接抓網頁，所以每小時的檢查是借你開著的酷澎分頁去看價格；沒開的時候那一輪就先跳過。價格是你的瀏覽器自己讀的，不經過我們的伺服器。</td></tr>
+  <tr><td>開發者的簽名伺服器 (<code>coupang-track-link.pidan0126.workers.dev</code>，架在 Cloudflare)</td>
+      <td>只有在你<b>自己點</b>追蹤清單或降價通知裡的商品的時候</td>
+      <td>只是要一個一次性的簽名。不送任何網址，也不送你的帳號、cookie 或任何個人資料。</td></tr>
+  <tr><td>酷澎分潤計畫的連結服務 (<code>api-gateway.tw.coupang.com</code>)</td>
+      <td>緊接在上一步之後</td>
+      <td>那一個商品的網址 (拿掉搜尋字和追蹤參數) 和開發者的簽名，不帶任何 cookie。酷澎回傳開發者的分潤連結，依酷澎的隱私權政策處理。</td></tr>
+  <tr><td>酷澎的圖片伺服器 (<code>*.coupangcdn.com</code>)</td><td>你打開追蹤清單的時候</td>
+      <td>載入你追蹤的商品的縮圖，跟你在酷澎網站上看商品圖一樣。不帶來源網址 (Referer)，也不送任何其他資料。只接受酷澎圖片伺服器的網址，其他網站的圖片不會顯示。</td></tr>
+</table>
+
+<h3>關於簽名伺服器</h3>
+<ul>
+  <li>簽名只能用在「把商品網址換成開發者的分潤連結」這一件事，而且只在短時間內有效，裡面沒有你的任何資料。</li>
+  <li>簽名伺服器不收網址、不存任何資料。為了防止濫用，會在記憶體裡短暫計算每個 IP 位址的請求次數，不會寫下來。</li>
+  <li>伺服器架在 Cloudflare 上，Cloudflare 平台本身可能有一般的連線紀錄 (例如 IP 位址)，依 Cloudflare 的隱私權政策處理。</li>
+</ul>
+
+<h2>分潤連結</h2>
+<p>這個工具是免費的。在追蹤清單或降價通知裡點商品時，會打開開發者的酷澎分潤連結；你透過這個連結購買，酷澎會付給開發者一點分潤，<b>你付的價格不會因此改變</b>。</p>
+<ul>
+  <li>只有你自己點商品的時候才會用到分潤連結。擴充功能不會改寫你在酷澎網站上看到的連結、不會在背景開網頁，也不會設定任何 cookie。</li>
+  <li>不想透過分潤連結購買：直接到酷澎網站搜尋那個商品就好。擴充功能不會改動你在酷澎網站上點的任何連結，只有在追蹤清單或降價通知裡點商品才會用到分潤連結。</li>
+</ul>
+
+<h2>LINE 社群連結</h2>
+<p>追蹤清單上有開發者 LINE 社群的連結和 QR code。QR code 是擴充功能在你的電腦上畫出來的，不會連到任何地方；只有你自己點了連結，瀏覽器才會打開 LINE 的網頁 (依 LINE 的隱私權政策處理)。加不加入都不影響擴充功能的使用，擴充功能也不會把你的任何資料傳給 LINE。</p>
+
+<h2>我們不做的事</h2>
+<ul>
+  <li>不出售、不分享任何資料，不收集任何個人資料或瀏覽紀錄 (商品網址只會送到酷澎，不會送到開發者的伺服器)。</li>
+  <li>沒有廣告追蹤、沒有分析工具 (analytics)。</li>
+  <li>不把資料用在跟價格追蹤無關的用途，也不用來判斷信用或借貸資格。</li>
+</ul>
+
+<h2>權限說明</h2>
+<table>
+  <tr><th>權限</th><th>為什麼需要</th></tr>
+  <tr><td>存取 <code>www.tw.coupang.com</code>、<code>tw.coupang.com</code></td><td>在商品頁顯示「★ 追蹤價格」按鈕、讀頁面上的價格，以及每小時檢查追蹤中商品的價格。在酷澎的其他頁面只看網址 (判斷是不是商品頁)、告訴擴充功能「有開著的酷澎分頁」，不讀頁面內容</td></tr>
+  <tr><td>存取開發者的簽名伺服器</td><td>你在追蹤清單或通知點商品時，拿一次性的簽名</td></tr>
+  <tr><td>存取 <code>api-gateway.tw.coupang.com</code></td><td>你在追蹤清單或通知點商品時，由你的瀏覽器向酷澎分潤計畫換分潤連結</td></tr>
+  <tr><td>storage (儲存)</td><td>把追蹤清單、價格紀錄、設定存在你的電腦</td></tr>
+  <tr><td>alarms (排程)</td><td>每小時自動檢查一次價格 (一次一個商品，分散在一小時裡)</td></tr>
+  <tr><td>notifications (通知)</td><td>降到新低價時通知你 (可在設定關閉)</td></tr>
+  <tr><td>scripting (執行腳本)</td><td>在你開著的酷澎分頁裡讀取追蹤中商品的價格 (跟你自己看頁面一樣，比較不會被網站擋)</td></tr>
+</table>
+
+<h2>聯絡我們</h2>
+<p>對這份政策有任何問題，請透過 Chrome 線上應用程式商店裡這個擴充功能頁面上的聯絡方式與開發者 (花貴賓皮蛋) 聯繫。政策若有修改，會更新在這一頁並標示更新日期。</p>
+</body>
+</html>
